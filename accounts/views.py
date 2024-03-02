@@ -149,7 +149,7 @@ def resetPassword(request,uidb64, token):
             # token_parts = token.split('-')
             # token_timestamp = float(token_parts[-1])
             # testingvalue =  extract_timestamp_from_token(token)
-            print("---------------Hello World----------------> ",testingvalue)
+            # print("---------------Hello World----------------> ",testingvalue)
             # print(token_timestamp)
             if new_password == confirm_password:
                 user.set_password(confirm_password)
