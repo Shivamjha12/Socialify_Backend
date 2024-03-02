@@ -148,7 +148,7 @@ def resetPassword(request,uidb64, token):
             confirm_password = request.POST.get('confirmPassword')
             # token_parts = token.split('-')
             # token_timestamp = float(token_parts[-1])
-            testingvalue =  extract_timestamp_from_token(token)
+            # testingvalue =  extract_timestamp_from_token(token)
             print("---------------Hello World----------------> ",testingvalue)
             # print(token_timestamp)
             if new_password == confirm_password:
