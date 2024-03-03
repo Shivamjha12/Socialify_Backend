@@ -7,5 +7,6 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-user/', include('accounts.urls')),
+    path('post/',include('userEnagements.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # added new static

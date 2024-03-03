@@ -189,6 +189,23 @@ class login(APIView):
         }
         return response
 
+
+def get_user_from_token(JWTUser):
+    token = None
+    if JWTUser!='None':
+        token = JWTUser
+    # request.COOKIES.get('jwt')
+    print(type(token),"typeeeeeeeeeeeeeeeeeeeeeeeeee")
+    print(token,"Here is the token, -----------sssssssssssss-----s-s--s-s-sssssssss")
+    if not token:
+        return ('Unauthenticated please login')
+    try:
+        payload = jwt.decode(token,'secret',algorithms=['HS256'])
+    except jwt.ExpiredSignatureError:
+        return ('Unauthenticated please login')
+    user = User.objects.filter(id=payload['id']).first()
+    return user
+
 class userView(APIView):
     def get(self, request,JWTUser):
         token = None
