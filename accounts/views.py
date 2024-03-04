@@ -17,7 +17,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from socialify_backend import settings
 from django.utils import timezone
 from django.utils.http import base36_to_int
-
+from UserProfile.models import UserProfile
 
 def extract_timestamp_from_token(token):
     try:
@@ -70,6 +70,9 @@ class register(APIView):
         USER = User.objects.filter(email=userEmail).first()
         USER.is_active = False
         USER.save()
+        #creating user default profile
+        up = UserProfile.objects.create(user=USER)
+        up.save()
         #1 we need to generate a token and mail content for the user
         current_site = get_current_site(request)
         mail_subject = "Activate your account"

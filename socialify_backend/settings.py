@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'accounts',
     'userEnagements',
+    'UserProfile',
+    'UserFriends',
+    'search',
 ]
 
 MIDDLEWARE = [
