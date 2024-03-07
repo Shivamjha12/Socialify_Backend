@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from .models import Post, Photo, Comment
 from .serializers import PostSerializer,CommentSerializer
 from accounts.models import User
-
+from UserFriends.models import Friendship
 
 
 class PostCreationAPIView(APIView):
@@ -83,7 +83,18 @@ class PostUserFeedAPIView(APIView):
         user = User.objects.filter(email=email).first()
         if user is None:
             return Response(status=status.HTTP_400_BAD_REQUEST,data={'message': 'User Not Found'})
-        posts = Post.objects.filter(user=user)
+        
+        friend_of_user = Friendship.objects.filter(user1=user)
+        user_friend = [i.user2.id for i in friend_of_user]
+        
+        # for i in friend_of_user:
+        #     user_friend.append(i.user2)
+        user_friend.append(user.id)
+        print(user_friend,"List of friends")
+        print(friend_of_user,"Here we got ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        
+        posts = Post.objects.filter(user__id__in=user_friend) 
+        print(posts,"does i am getting the posts that i want")
         post_data = PostSerializer(posts,many=True).data
         for i in post_data:
             uuid = i['postid']

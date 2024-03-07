@@ -9,7 +9,6 @@ from .serializers import UserProfileSerializer
 # Create your views here.
 class UserProfileView(APIView):
     def get(self, request,userEmail):
-        pass
         UserProfileobj = UserProfile.objects.filter(user__email=userEmail).first()
         if UserProfileobj is None:
             return Response(status=status.HTTP_400_BAD_REQUEST,data={'message': 'Profile Not Found'})

@@ -27,7 +27,15 @@ class GetFriendApi(APIView):
         
         # Query friendships where the user is either user1 or user2
         friendships = Friendship.objects.filter(user1=user)
-        
+        no_of_friends = []
+        for i in friendships:
+            if i.user2.id not in no_of_friends:
+                no_of_friends.append(i.user2.id)
+            
+            
+        userprofile = UserProfile.objects.filter(user=user).first()
+        userprofile.friends_count = len(no_of_friends)
+        userprofile.save()    
         # Serialize the friendships
         serializer = UserFriendSerializer(friendships, many=True).data
         for i in serializer:
