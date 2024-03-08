@@ -28,8 +28,8 @@ class UserProfileView(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST, data={'message': 'User Not Found'})
     
         userProfileInstance = UserProfile.objects.filter(user__email=userEmail.email).first()
-        if userProfileInstance is not None:
-            return Response(status=status.HTTP_400_BAD_REQUEST, data={'message': 'Profile Already Exists'})
+        # if userProfileInstance is not None:
+        #     return Response(status=status.HTTP_400_BAD_REQUEST, data={'message': 'Profile Already Exists'})
         
         UserProfileobj = UserProfile.objects.create(user=userEmail, profile_Image=profile_image, country=country, city=city, short_intro=short_intro, description=description, interests=interests)
         UserProfileobj.save()
